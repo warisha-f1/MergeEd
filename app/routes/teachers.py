@@ -2,8 +2,6 @@ from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
-
-# FIXED IMPORTS
 from app.services.ai_service import AIService
 from app.database import DatabaseService
 
@@ -12,9 +10,9 @@ router = APIRouter(prefix="/teachers", tags=["teachers"])
 # Initialize services
 try:
     ai_service = AIService()
-    print("✅ AI Service initialized successfully")
+    print("AI Service initialized successfully")
 except Exception as e:
-    print(f"❌ AI Service initialization failed: {e}")
+    print(f"AI Service initialization failed: {e}")
     # Create a fallback AI service
     ai_service = None
 
@@ -60,33 +58,33 @@ class SubmissionResponse(BaseModel):
 # Helper function for fallback AI responses
 def get_fallback_response(teacher_message: str):
     """Generate a fallback response when AI service is unavailable"""
-    return f"""🧠 **AI TEACHING STRATEGY** (Offline Mode)
+    return f"""**AI TEACHING STRATEGY** (Offline Mode)
 
 I understand you're asking: "{teacher_message[:100]}..."
 
-📋 **GENERAL TEACHING STRATEGY:**
+**GENERAL TEACHING STRATEGY:**
 
-🔹 **Quick Classroom Tips:**
+**Quick Classroom Tips:**
 • Start with a 5-minute warm-up activity
 • Use visual aids to explain concepts
 • Implement peer learning groups
 • Provide immediate feedback
 
-🔹 **Student Engagement:**
+**Student Engagement:**
 • Use think-pair-share discussions
 • Incorporate movement breaks
 • Gamify learning with points/levels
 • Connect lessons to real-life examples
 
-🔹 **Assessment Ideas:**
+**Assessment Ideas:**
 • Exit tickets at end of class
 • Weekly mini-quizzes
 • Peer assessment activities
 • Learning journals
 
-💡 **When backend is connected, I'll provide personalized strategies based on your specific classroom context, language, and infrastructure.**
+**When backend is connected, I'll provide personalized strategies based on your specific classroom context, language, and infrastructure.**
 
-⚠️ **Note:** AI service is currently offline. Please check backend connection."""
+**Note:** AI service is currently offline. Please check backend connection."""
 
 # Existing endpoints
 @router.get("/", response_model=List[TeacherResponse])
@@ -123,7 +121,7 @@ async def create_teacher(teacher: TeacherCreate):
         
         # Create response
         return TeacherResponse(
-            id=1,  # This would come from database
+            id=1,  
             name=teacher.name,
             email=teacher.email,
             school=teacher.school,
@@ -140,11 +138,11 @@ async def teacher_chat(request: ChatRequest):
     Natural language chat endpoint for teachers using Gemini AI
     """
     try:
-        print(f"📩 Received chat request from {request.teacher_id}: {request.message[:50]}...")
+        print(f"Received chat request from {request.teacher_id}: {request.message[:50]}...")
         
         # Check if AI service is available
         if ai_service is None:
-            print("⚠️ AI Service not available, using fallback")
+            print("AI Service not available, using fallback")
             strategy = get_fallback_response(request.message)
             params = {
                 "problem": "general",
@@ -155,14 +153,14 @@ async def teacher_chat(request: ChatRequest):
             submission_id = 0
         else:
             # Extract parameters from natural language using Gemini
-            print("🔍 Extracting parameters with AI...")
+            print("Extracting parameters with AI...")
             params = ai_service.extract_parameters(request.message)
-            print(f"✅ Extracted params: {params}")
+            print(f"Extracted params: {params}")
             
             # Generate AI strategy using Gemini
-            print("🤖 Generating strategy with Gemini AI...")
+            print("Generating strategy with Gemini AI...")
             strategy = ai_service.generate_strategy(params)
-            print(f"✅ Generated strategy ({len(strategy)} chars)")
+            print(f"Generated strategy ({len(strategy)} chars)")
         
         # Store submission in database
         try:
@@ -176,9 +174,9 @@ async def teacher_chat(request: ChatRequest):
                 "status": "Pending",
                 "created_at": datetime.now().isoformat()
             })
-            print(f"💾 Saved to database with ID: {submission_id}")
+            print(f"Saved to database with ID: {submission_id}")
         except Exception as db_error:
-            print(f"⚠️ Database save failed: {db_error}")
+            print(f"Database save failed: {db_error}")
             submission_id = 0  # Use 0 if database fails
         
         return ChatResponse(
@@ -189,7 +187,7 @@ async def teacher_chat(request: ChatRequest):
         )
         
     except Exception as e:
-        print(f"❌ Chat error: {str(e)}")
+        print(f"Chat error: {str(e)}")
         
         # Even if everything fails, return a helpful response
         return ChatResponse(
@@ -205,12 +203,12 @@ async def teacher_chat(request: ChatRequest):
             }
         )
 
-# NEW: Get teacher's submissions
+#Get teacher's submissions
 @router.get("/{teacher_id}/submissions", response_model=List[SubmissionResponse])
 async def get_teacher_submissions(teacher_id: str):
     """Get all submissions by a teacher"""
     try:
-        print(f"📋 Fetching submissions for teacher: {teacher_id}")
+        print(f"Fetching submissions for teacher: {teacher_id}")
         submissions = db.get_teacher_submissions(teacher_id)
         
         # Format the response
@@ -232,11 +230,11 @@ async def get_teacher_submissions(teacher_id: str):
                 strategy=sub.get("strategy")
             ))
         
-        print(f"✅ Found {len(formatted_submissions)} submissions")
+        print(f"Found {len(formatted_submissions)} submissions")
         return formatted_submissions
         
     except Exception as e:
-        print(f"❌ Error fetching submissions: {str(e)}")
+        print(f"Error fetching submissions: {str(e)}")
         raise HTTPException(status_code=500, detail=str(e))
 
 # Health check endpoint for AI service

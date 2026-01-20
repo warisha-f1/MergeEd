@@ -1,10 +1,8 @@
-# app/routes/approvals.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-# FIXED IMPORT - relative import
 try:
     # Try absolute import first
     from app.database import DatabaseService

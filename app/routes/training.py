@@ -1,10 +1,8 @@
-# app/routes/training.py
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import List, Optional
 from datetime import datetime
 
-# FIXED IMPORTS
 try:
     from app.database import DatabaseService
 except ImportError:
@@ -79,7 +77,6 @@ async def get_training_modules(language: Optional[str] = None):
 async def enroll_training(enrollment: EnrollmentRequest):
     """Enroll teacher in a training module"""
     try:
-        # In real app, you would store enrollment in database
         
         return {
             "success": True,

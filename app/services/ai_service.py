@@ -21,9 +21,9 @@ class AIService:
         
         try:
             self.model = genai.GenerativeModel(self.model_name)
-            print(f"✅ Gemini AI initialized with model: {self.model_name}")
+            print(f"Gemini AI initialized with model: {self.model_name}")
         except Exception as e:
-            print(f"❌ Gemini initialization failed: {e}")
+            print(f"Gemini initialization failed: {e}")
             self.model = None
     
     def extract_parameters(self, user_message: str) -> Dict[str, Any]:
@@ -151,7 +151,7 @@ REQUIREMENTS:
 8. Maximum 400 words
 
 FORMAT:
-Start with: "🧠 **AI TEACHING STRATEGY**"
+Start with: "**AI TEACHING STRATEGY**"
 
 Include these sections:
 1. **Quick Wins** (2 things to try tomorrow)
@@ -183,32 +183,32 @@ Remember: Be specific to {language} teaching and {problem} problem."""
         language = params.get("language", "English")
         infrastructure = params.get("infrastructure", "Medium")
         
-        return f"""🧠 **AI TEACHING STRATEGY** (Fallback Mode)
+        return f"""**AI TEACHING STRATEGY** (Fallback Mode)
 
 **Context:** {language} | {problem} | {infrastructure} Infrastructure
 
-📋 **QUICK WINS** (Try tomorrow):
+**QUICK WINS** (Try tomorrow):
 1. **Warm-up Activity**: Start class with a 5-minute {language} word game
 2. **Peer Teaching**: Pair students to explain concepts to each other
 
-🔍 **DETAILED APPROACH**:
+**DETAILED APPROACH**:
 - Break lessons into 15-minute chunks with mini-activities
 - Use visual aids (charts, drawings) for {language} concepts
 - Implement think-pair-share discussions
 
-🛠️ **RESOURCES NEEDED** ({infrastructure} infrastructure):
+**RESOURCES NEEDED** ({infrastructure} infrastructure):
 - Basic: Paper, markers, flashcards
 - Medium: Projector, audio player
 - High: Digital tools, interactive apps
 
-📊 **ASSESSMENT IDEAS**:
+**ASSESSMENT IDEAS**:
 - Weekly 5-question quizzes
 - Peer feedback sessions
 - Learning journals
 
-⏱️ **TIMELINE**:
+**TIMELINE**:
 Week 1: Implement 1-2 strategies
 Week 2: Gather student feedback
 Week 3: Adjust and expand
 
-💡 **Need specific help?** Describe your exact classroom situation for more tailored advice."""
+**Need specific help?** Describe your exact classroom situation for more tailored advice."""
