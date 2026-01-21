@@ -2,7 +2,7 @@
 
 import { useState, Suspense, useEffect, useRef, KeyboardEvent } from "react";
 import { useSearchParams } from "next/navigation";
-import { apiService } from "@/MergeEd/frontend/services/api";
+import { apiService } from "@/services/api";
 
 /* =========================
    TYPES
