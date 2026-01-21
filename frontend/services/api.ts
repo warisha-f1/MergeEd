@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://192.168.0.100:3333";
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "https://mergeed.onrender.com";
 
 export interface Submission {
   id: number;
