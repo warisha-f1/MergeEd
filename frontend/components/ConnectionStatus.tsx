@@ -9,6 +9,9 @@ export default function ConnectionStatus() {
   const [isChecking, setIsChecking] = useState(true);
   const [showDetails, setShowDetails] = useState(false);
   const [lastChecked, setLastChecked] = useState("");
+  
+  // Get backend URL from environment or use Render URL as fallback
+  const backendUrl = process.env.NEXT_PUBLIC_API_URL || "https://mergeed.onrender.com";
 
   const checkConnection = async () => {
     setIsChecking(true);
@@ -75,18 +78,18 @@ export default function ConnectionStatus() {
             {!isConnected ? (
               <div className="p-3 bg-red-50 border border-red-200 rounded-lg">
                 <h5 className="font-semibold text-red-700 mb-1">
-                   Connection Issues
+                  Connection Issues
                 </h5>
                 <ul className="text-sm text-red-600 space-y-1">
                   <li>• Backend server is not reachable</li>
                   <li>• Make sure server is running</li>
-                  <li>• Check port 3333</li>
-                  <li>• Check network / firewall</li>
+                  <li>• Check network / firewall settings</li>
+                  <li>• Verify backend URL: {backendUrl}</li>
                 </ul>
               </div>
             ) : (
               <div className="p-3 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
-                 Backend is reachable and healthy
+                Backend is reachable and healthy
               </div>
             )}
 
@@ -100,12 +103,10 @@ export default function ConnectionStatus() {
               </button>
 
               <button
-                onClick={() =>
-                  window.open("http://192.168.0.100:3333", "_blank")
-                }
+                onClick={() => window.open(backendUrl, "_blank")}
                 className="text-sm bg-gray-100 hover:bg-gray-200 px-3 py-2 rounded-md"
               >
-                🔗 Open Backend
+                Open Backend
               </button>
             </div>
           </div>
@@ -113,9 +114,9 @@ export default function ConnectionStatus() {
 
         {/* Footer */}
         <div className="px-4 py-2 bg-gray-50 border-t border-gray-200 text-xs text-gray-500 flex justify-between">
-          <span>Backend: 192.168.0.100:3333</span>
+          <span>Backend: {backendUrl.replace('https://', '').replace('http://', '')}</span>
           <span className={isConnected ? "text-green-600" : "text-red-600"}>
-            {isConnected ? "🟢 Live" : "🔴 Offline"}
+            {isConnected ? "Live" : "Offline"}
           </span>
         </div>
       </div>
