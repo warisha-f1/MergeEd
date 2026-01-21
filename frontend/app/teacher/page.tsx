@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import ConnectionStatus from "@components/ConnectionStatus";
+import ConnectionStatus from "../../components/ConnectionStatus";
 
 export default function TeacherPage() {
   const [activeTab, setActiveTab] = useState("dashboard");
