@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { apiService } from "../../../MergeEd/frontend/services/api";
+import { apiService } from "@/services/api";
 
 interface Submission {
   id: number;
