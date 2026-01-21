@@ -2,100 +2,134 @@
 "use client";
 
 import { useState } from "react";
-import ConnectionStatus from "../../components/ConnectionStatus";
 
 export default function TeacherPage() {
-  const [activeTab, setActiveTab] = useState("dashboard");
+  const [activeTab, setActiveTab] = useState("chat");
+  const [message, setMessage] = useState("");
+  const [chatHistory, setChatHistory] = useState([
+    { id: 1, sender: "ai", text: "Hello! I'm your AI Teaching Assistant.", time: "09:22 PM" },
+    { id: 2, sender: "user", text: "Student's are not understanding English grammar.", time: "09:23 PM" },
+  ]);
 
   return (
-    <div className="p-6">
-      {/* Teacher Page Header */}
+    <div className="min-h-screen bg-gray-50 p-6">
+      {/* Header */}
       <header className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Teacher Portal</h1>
-        <p className="text-gray-600 mt-2">
-          Manage your classroom, track student progress, and access teaching resources.
-        </p>
+        <h1 className="text-3xl font-bold text-gray-800">AI Teaching Assistant</h1>
+        <p className="text-gray-600 mt-2">Personalized strategies for your classroom</p>
       </header>
 
+      {/* Tabs */}
+      <div className="flex space-x-2 mb-6 border-b">
+        <button
+          onClick={() => setActiveTab("chat")}
+          className={`px-4 py-2 font-medium ${
+            activeTab === "chat" 
+              ? "border-b-2 border-blue-500 text-blue-600" 
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Chat
+        </button>
+        <button
+          onClick={() => setActiveTab("history")}
+          className={`px-4 py-2 font-medium ${
+            activeTab === "history" 
+              ? "border-b-2 border-blue-500 text-blue-600" 
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          History
+        </button>
+        <button
+          onClick={() => setActiveTab("resources")}
+          className={`px-4 py-2 font-medium ${
+            activeTab === "resources" 
+              ? "border-b-2 border-blue-500 text-blue-500" 
+              : "text-gray-500 hover:text-gray-700"
+          }`}
+        >
+          Resources
+        </button>
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Teacher Dashboard */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Stats Cards for Teachers */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div className="bg-white p-4 rounded-lg shadow border">
-              <div className="text-xl font-bold text-blue-600">42</div>
-              <div className="text-gray-700">Total Students</div>
+        {/* Chat Section */}
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-xl shadow p-6">
+            <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+              <p className="text-gray-700">Describe your classroom challenge and I'll help you.</p>
+              <p className="text-sm text-gray-500 mt-1">09:22 PM</p>
             </div>
-            <div className="bg-white p-4 rounded-lg shadow border">
-              <div className="text-xl font-bold text-green-600">85%</div>
-              <div className="text-gray-700">Average Attendance</div>
-            </div>
-            <div className="bg-white p-4 rounded-lg shadow border">
-              <div className="text-xl font-bold text-purple-600">18</div>
-              <div className="text-gray-700">Pending Assignments</div>
-            </div>
-          </div>
 
-          {/* Classroom Content */}
-          <div className="bg-white rounded-lg shadow border p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Today's Schedule</h2>
-            <div className="space-y-3">
-              <div className="flex items-center justify-between p-3 bg-blue-50 rounded">
-                <div>
-                  <div className="font-medium">Mathematics</div>
-                  <div className="text-sm text-gray-600">Grade 9 • Room 203</div>
+            {/* Chat Messages */}
+            <div className="space-y-4 mb-6">
+              {chatHistory.map((msg) => (
+                <div
+                  key={msg.id}
+                  className={`p-4 rounded-lg ${
+                    msg.sender === "ai" 
+                      ? "bg-gray-50" 
+                      : "bg-blue-50 ml-8"
+                  }`}
+                >
+                  <div className="flex justify-between items-start">
+                    <p className="text-gray-800">{msg.text}</p>
+                    <span className="text-sm text-gray-500">{msg.time}</span>
+                  </div>
                 </div>
-                <div className="text-gray-700">9:00 AM - 10:00 AM</div>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-green-50 rounded">
-                <div>
-                  <div className="font-medium">Science Lab</div>
-                  <div className="text-sm text-gray-600">Grade 10 • Lab 101</div>
-                </div>
-                <div className="text-gray-700">11:00 AM - 12:30 PM</div>
-              </div>
+              ))}
             </div>
-          </div>
 
-          {/* Recent Activities */}
-          <div className="bg-white rounded-lg shadow border p-6">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">Recent Activities</h2>
-            <ul className="space-y-3">
-              <li className="flex items-center p-3 hover:bg-gray-50 rounded">
-                <div className="w-2 h-2 bg-green-500 rounded-full mr-3"></div>
-                <div>
-                  <div>Assignment graded: Algebra Test</div>
-                  <div className="text-sm text-gray-500">2 hours ago</div>
-                </div>
-              </li>
-              <li className="flex items-center p-3 hover:bg-gray-50 rounded">
-                <div className="w-2 h-2 bg-blue-500 rounded-full mr-3"></div>
-                <div>
-                  <div>New student enrolled: Rohan Sharma</div>
-                  <div className="text-sm text-gray-500">Yesterday</div>
-                </div>
-              </li>
-            </ul>
+            {/* Input */}
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+                placeholder="Type your message here..."
+                className="flex-1 p-3 border border-gray-300 rounded-lg"
+              />
+              <button className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700">
+                Send
+              </button>
+            </div>
           </div>
         </div>
 
-        {/* Right Column - Connection Status & Tools */}
+        {/* Sidebar */}
         <div className="space-y-6">
-          <ConnectionStatus />
-          
-          {/* Quick Actions */}
-          <div className="bg-white rounded-lg shadow border p-6">
-            <h3 className="font-bold text-lg mb-4">Quick Actions</h3>
+          {/* AI Strategy */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <h3 className="font-bold text-lg mb-4 text-gray-800">AI TEACHING STRATEGY</h3>
+            <div className="p-3 bg-yellow-50 rounded-lg mb-4">
+              <p className="text-sm font-medium text-yellow-800">Fallback Mode</p>
+            </div>
             <div className="space-y-3">
-              <button className="w-full text-left p-3 hover:bg-blue-50 rounded border">
-                Create New Assignment
-              </button>
-              <button className="w-full text-left p-3 hover:bg-green-50 rounded border">
-                Mark Attendance
-              </button>
-              <button className="w-full text-left p-3 hover:bg-purple-50 rounded border">
-                Upload Lesson Plan
-              </button>
+              <div>
+                <p className="text-sm text-gray-500">Context:</p>
+                <p className="font-medium">English | learning | Medium Infrastructure</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Connection Status */}
+          <div className="bg-white rounded-xl shadow p-6">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-bold text-lg text-gray-800">Teacher II</h3>
+              <span className="px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                Live
+              </span>
+            </div>
+            <div className="space-y-2 text-sm">
+              <div className="flex justify-between">
+                <span className="text-gray-600">Last checked:</span>
+                <span className="font-medium">9:23:25 PM</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-600">Backend:</span>
+                <span className="font-mono text-gray-800">192.168.0.100:3333</span>
+              </div>
             </div>
           </div>
         </div>
