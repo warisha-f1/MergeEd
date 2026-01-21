@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef, KeyboardEvent } from "react";
-import { apiService, type Submission } from "@/MergeEd/frontend/services/api";
-import ConnectionStatus from "@/MergeEd/frontend/components/ConnectionStatus";
+import { apiService, type Submission } from "@/services/api";
+import ConnectionStatus from "@/components/ConnectionStatus";
 
 /* =========================
    TYPES
