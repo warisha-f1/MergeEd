@@ -2,7 +2,7 @@ MergeEd - AI-Powered Teaching Assistant Platform
 
 
 🚀 Live Deployment
-Frontend: https://merged-ochre.vercel.app
+Frontend: https://mergeed.vercel.app
 Backend: https://mergeed.onrender.com
 
 
