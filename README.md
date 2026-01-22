@@ -1,24 +1,23 @@
 MergeEd - AI-Powered Teaching Assistant Platform
+
 🚀 Live Deployment
 Frontend: https://mergeed.vercel.app
 
 Backend: https://mergeed.onrender.com
 
-📌 Project Overview
+📌 Project Overview:
+
 MergeEd is a full-stack platform designed to revolutionize India's education system. It provides AI-powered teaching assistance, streamlines government approval workflows, and enables real-time national monitoring across a distributed architecture.
 
-🎯 The Problem
+🎯 The Problem:
+
 The current Indian educational landscape faces four critical challenges:
-
 Teacher Isolation: Teachers often struggle with unique classroom challenges without access to expert guidance.
-
 Administrative Bottlenecks: DIET (District Institute of Education and Training) Officers are overwhelmed by manual, paper-based approval processes.
-
 Data Gaps: SCERT (State Council of Educational Research and Training) lacks the real-time data necessary for informed policy decisions.
-
 Inconsistency: Students across different regions receive inconsistent qualities of education due to a lack of standardized support.
 
-💡 Our Solution
+💡 Our Solution:
 MergeEd provides a unified platform that connects teachers with AI assistance, streamlines government workflows, and provides actionable insights at scale. It bridges the gap between the classroom and the command center by digitizing the entire pedagogical lifecycle.
 
 ✨ Key Features
